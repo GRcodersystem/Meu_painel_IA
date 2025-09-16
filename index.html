@@ -1,66 +1,70 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa Mental Linear - Workflow AI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .step-node { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
-        .step-node:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Mental Linear - Workflow AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .step-node { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+        .step-node:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
         .step-node.completed { opacity: 0.6; border: 2px solid #10b981; }
-        .sub-theme { opacity: 0; transform: translateX(-20px); transition: all 0.3s ease; }
-        .sub-theme.show { opacity: 1; transform: translateX(0); }
-        .arrow-connector { position: relative; }
-        .arrow-connector::after { content: ''; position: absolute; top: 50%; right: -25px; width: 0; height: 0; border-left: 15px solid #3b82f6; border-top: 10px solid transparent; border-bottom: 10px solid transparent; transform: translateY(-50%); }
+        .sub-theme { opacity: 0; transform: translateX(-20px); transition: all 0.3s ease; }
+        .sub-theme.show { opacity: 1; transform: translateX(0); }
         .step-node a { text-decoration: none; color: inherit; }
-    </style>
+
+        /* Apenas para ecrãs maiores */
+        @media (min-width: 768px) {
+            .arrow-connector { position: relative; }
+            .arrow-connector::after { content: ''; position: absolute; top: 50%; right: -25px; width: 0; height: 0; border-left: 15px solid #3b82f6; border-top: 10px solid transparent; border-bottom: 10px solid transparent; transform: translateY(-50%); z-index: 10; }
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen p-6">
-    <div class="max-w-7xl mx-auto">
-        <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
-                🤖 Workflow: Equipa de Especialistas AI
-            </h1>
-            <p class="text-gray-600 mb-4">Fluxo automatizado de criação de campanhas de dropshipping</p>
-        </header>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen p-4 md:p-6">
+    <div class="max-w-7xl mx-auto">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
+                🤖 Workflow: Equipa de Especialistas AI
+            </h1>
+            <p class="text-gray-600 mb-4">Fluxo automatizado de criação de campanhas de dropshipping</p>
+        </header>
 
-        <main class="bg-white rounded-3xl shadow-2xl p-8 overflow-x-auto">
-            <div class="flex items-start justify-between min-w-[1400px] space-x-8">
-                
-                                <div class="flex-1" id="step1">
-                    <a href="https://chatgpt.com/g/g-68c90a7117208191b8431e847f539881-cacador-de-tendencias?model=gpt-5-thinking" target="_blank" title="Abrir GPT Caçador de Tendências">
-                        <div class="step-node bg-gradient-to-br from-red-400 to-pink-600 text-white rounded-2xl p-6 shadow-xl arrow-connector">
-                            <h3 class="text-xl font-bold">🎯 CAÇADOR TENDÊNCIAS</h3>
-                            <p class="text-sm opacity-90">Analisar Mercado Dropshipping BR</p>
-                        </div>
+        <main class="bg-white rounded-3xl shadow-2xl p-4 md:p-8">
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between space-y-8 md:space-y-0 md:space-x-8">
+                
+                <div class="w-full md:flex-1" id="step1">
+                    <a href="https://chatgpt.com/g/g-68c90a7117208191b8431e847f539881-cacador-de-tendencias" target="_blank" title="Abrir GPT Caçador de Tendências">
+                        <div class="step-node bg-gradient-to-br from-red-400 to-pink-600 text-white rounded-2xl p-6 shadow-xl arrow-connector">
+                            <h3 class="text-xl font-bold">🎯 CAÇADOR TENDÊNCIAS</h3>
+                            <p class="text-sm opacity-90">Analisar Mercado Dropshipping BR</p>
+                        </div>
                     </a>
-                    <div class="mt-4 space-y-3">
-                        <div class="sub-theme bg-red-50 border-l-4 border-red-400 p-4 rounded-r-xl">
-                            <h4 class="font-semibold text-red-800">📤 Output</h4>
-                            <label class="flex items-center text-sm text-red-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step1')" class="mr-2">Relatório de Tendências Recebido</label>
-                        </div>
-                    </div>
-                </div>
+                    <div class="mt-4 space-y-3">
+                        <div class="sub-theme bg-red-50 border-l-4 border-red-400 p-4 rounded-r-xl">
+                            <h4 class="font-semibold text-red-800">📤 Output</h4>
+                            <label class="flex items-center text-sm text-red-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step1')" class="mr-2 h-4 w-4">Relatório de Tendências Recebido</label>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="flex-1" id="step2">
-                    <a href="https://chatgpt.com/g/g-68c8b9a2e6a88191870120d5c65b02c4-analista-de-produtos-vencedores?model=gpt-5-thinking" target="_blank" title="Abrir GPT O Analista">
+                <div class="w-full md:flex-1" id="step2">
+                    <a href="https://chatgpt.com/g/g-68c8b9a2e6a88191870120d5c65b02c4-analista-de-produtos-vencedores" target="_blank" title="Abrir GPT O Analista">
                         <div class="step-node bg-gradient-to-br from-green-400 to-emerald-600 text-white rounded-2xl p-6 shadow-xl arrow-connector">
                             <h3 class="text-xl font-bold">🕵️‍♂️ O ANALISTA</h3>
                             <p class="text-sm opacity-90">Analisar Potencial de Mercado</p>
                         </div>
                     </a>
                     <div class="mt-4 space-y-3">
-                        <div class="sub-theme bg-green-50 border-l-4 border-green-400 p-4 rounded-r-xl">
-                            <h4 class="font-semibold text-green-800">📤 Output</h4>
-                            <label class="flex items-center text-sm text-green-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step2')" class="mr-2">Relatório de Viabilidade (Go/No-Go)</label>
-                        </div>
-                    </div>
+                        <div class="sub-theme bg-green-50 border-l-4 border-green-400 p-4 rounded-r-xl">
+                            <h4 class="font-semibold text-green-800">📤 Output</h4>
+                            <label class="flex items-center text-sm text-green-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step2')" class="mr-2 h-4 w-4">Relatório de Viabilidade (Go/No-Go)</label>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="flex-1" id="step3">
+                <div class="w-full md:flex-1" id="step3">
                     <a href="https://chatgpt.com/g/g-68c8c34c285081919757c4d7d1efbc06-copywriter-estrategista-45" target="_blank" title="Abrir GPT O Copywriter">
                         <div class="step-node bg-gradient-to-br from-blue-400 to-cyan-600 text-white rounded-2xl p-6 shadow-xl arrow-connector">
                             <h3 class="text-xl font-bold">✍️ O COPYWRITER</h3>
@@ -68,14 +72,14 @@
                         </div>
                     </a>
                      <div class="mt-4 space-y-3">
-                        <div class="sub-theme bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-xl">
-                            <h4 class="font-semibold text-blue-800">📤 Output</h4>
-                            <label class="flex items-center text-sm text-blue-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step3')" class="mr-2">Copy da Página de Vendas Pronta</label>
-                        </div>
-                    </div>
+                        <div class="sub-theme bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-xl">
+                            <h4 class="font-semibold text-blue-800">📤 Output</h4>
+                            <label class="flex items-center text-sm text-blue-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step3')" class="mr-2 h-4 w-4">Copy da Página de Vendas Pronta</label>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="flex-1" id="step4">
+                <div class="w-full md:flex-1" id="step4">
                     <a href="https://chatgpt.com/g/g-68c8c73797288191a954864bacfeb06d-mestre-dos-criativos?model=gpt-5-thinking" target="_blank" title="Abrir GPT Mestre dos Criativos">
                         <div class="step-node bg-gradient-to-br from-purple-400 to-violet-600 text-white rounded-2xl p-6 shadow-xl arrow-connector">
                             <h3 class="text-xl font-bold">🎬 MESTRE CRIATIVOS</h3>
@@ -83,14 +87,14 @@
                         </div>
                     </a>
                      <div class="mt-4 space-y-3">
-                        <div class="sub-theme bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-xl">
-                            <h4 class="font-semibold text-purple-800">📤 Output</h4>
-                            <label class="flex items-center text-sm text-purple-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step4')" class="mr-2">Roteiro de Vídeo Finalizado</label>
-                        </div>
-                    </div>
+                        <div class="sub-theme bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-xl">
+                            <h4 class="font-semibold text-purple-800">📤 Output</h4>
+                            <label class="flex items-center text-sm text-purple-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step4')" class="mr-2 h-4 w-4">Roteiro de Vídeo Finalizado</label>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="flex-1" id="step5">
+                <div class="w-full md:flex-1" id="step5">
                     <a href="https://chatgpt.com/g/g-68c8ce400e588191864005c1be2eca80-artista-digital-prompt-engineer?model=gpt-5-thinking" target="_blank" title="Abrir GPT Artista Digital">
                         <div class="step-node bg-gradient-to-br from-amber-400 to-orange-600 text-white rounded-2xl p-6 shadow-xl">
                             <h3 class="text-xl font-bold">🎨 ARTISTA DIGITAL</h3>
@@ -98,18 +102,17 @@
                         </div>
                     </a>
                      <div class="mt-4 space-y-3">
-                        <div class="sub-theme bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-xl">
-                            <h4 class="font-semibold text-amber-800">📤 Output</h4>
-                            <label class="flex items-center text-sm text-amber-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step5')" class="mr-2">Imagens para Anúncios Geradas</label>
-                        </div>
-                    </div>
+                        <div class="sub-theme bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-xl">
+                            <h4 class="font-semibold text-amber-800">📤 Output</h4>
+                            <label class="flex items-center text-sm text-amber-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step5')" class="mr-2 h-4 w-4">Imagens para Anúncios Geradas</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </main>
-    </div>
+            </div>
+        </main>
+    </div>
 
-    <script>
-        // Adiciona a classe 'show' aos sub-temas para que apareçam por padrão
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const subThemes = document.querySelectorAll('.sub-theme');
             subThemes.forEach((theme, index) => {
@@ -130,6 +133,6 @@
                 stepNode.classList.remove('completed');
             }
         }
-    </script>
+    </script>
 </body>
 </html>

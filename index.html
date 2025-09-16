@@ -1,1041 +1,135 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Mapa Mental Linear - 5 Passos de Ação</title>
-
+    <title>Mapa Mental Linear - Workflow AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
     <style>
-
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-        
-
-        body {
-
-            font-family: 'Inter', sans-serif;
-
-        }
-
-        
-
-        .step-node {
-
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-
-            cursor: pointer;
-
-        }
-
-        
-
-        .step-node:hover {
-
-            transform: translateY(-5px);
-
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-
-        }
-
-        
-
-        .sub-theme {
-
-            opacity: 0;
-
-            transform: translateX(-20px);
-
-            transition: all 0.3s ease;
-
-        }
-
-        
-
-        .sub-theme.show {
-
-            opacity: 1;
-
-            transform: translateX(0);
-
-        }
-
-        
-
-        .arrow-connector {
-
-            position: relative;
-
-        }
-
-        
-
-        .arrow-connector::after {
-
-            content: '';
-
-            position: absolute;
-
-            top: 50%;
-
-            right: -25px;
-
-            width: 0;
-
-            height: 0;
-
-            border-left: 15px solid #3b82f6;
-
-            border-top: 10px solid transparent;
-
-            border-bottom: 10px solid transparent;
-
-            transform: translateY(-50%);
-
-        }
-
-        
-
-        .expand-btn {
-
-            transition: transform 0.3s ease;
-
-        }
-
-        
-
-        .expand-btn.rotated {
-
-            transform: rotate(45deg);
-
-        }
-
-        
-
-        .progress-line {
-
-            height: 4px;
-
-            background: linear-gradient(90deg, #10b981, #3b82f6, #8b5cf6, #f59e0b, #ef4444);
-
-            border-radius: 2px;
-
-            position: relative;
-
-            overflow: hidden;
-
-        }
-
-        
-
-        .progress-line::after {
-
-            content: '';
-
-            position: absolute;
-
-            top: 0;
-
-            left: -100%;
-
-            width: 100%;
-
-            height: 100%;
-
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-
-            animation: shimmer 2s infinite;
-
-        }
-
-        
-
-        @keyframes shimmer {
-
-            0% { left: -100%; }
-
-            100% { left: 100%; }
-
-        }
-
-        
-
-        .fade-in-up {
-
-            animation: fadeInUp 0.6s ease-out;
-
-        }
-
-        
-
-        @keyframes fadeInUp {
-
-            from {
-
-                opacity: 0;
-
-                transform: translateY(30px);
-
-            }
-
-            to {
-
-                opacity: 1;
-
-                transform: translateY(0);
-
-            }
-
-        }
-
-        
-
-        .pulse-glow {
-
-            animation: pulseGlow 2s infinite;
-
-        }
-
-        
-
-        @keyframes pulseGlow {
-
-            0%, 100% {
-
-                box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-
-            }
-
-            50% {
-
-                box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
-
-            }
-
-        }
-
+        body { font-family: 'Inter', sans-serif; }
+        .step-node { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+        .step-node:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .step-node.completed { opacity: 0.6; border: 2px solid #10b981; }
+        .sub-theme { opacity: 0; transform: translateX(-20px); transition: all 0.3s ease; }
+        .sub-theme.show { opacity: 1; transform: translateX(0); }
+        .arrow-connector { position: relative; }
+        .arrow-connector::after { content: ''; position: absolute; top: 50%; right: -25px; width: 0; height: 0; border-left: 15px solid #3b82f6; border-top: 10px solid transparent; border-bottom: 10px solid transparent; transform: translateY(-50%); }
+        .step-node a { text-decoration: none; color: inherit; }
     </style>
-
 </head>
-
 <body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen p-6">
-
     <div class="max-w-7xl mx-auto">
-
-        <!-- Header -->
-
-        <div class="text-center mb-8">
-
+        <header class="text-center mb-8">
             <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
-
                 🤖 Workflow: Equipa de Especialistas AI
-
             </h1>
-
             <p class="text-gray-600 mb-4">Fluxo automatizado de criação de campanhas de dropshipping</p>
+        </header>
 
-            
-
-            <!-- Progress Line -->
-
-            <div class="max-w-4xl mx-auto mb-6">
-
-                <div class="progress-line"></div>
-
-                <div class="flex justify-between mt-2 text-xs text-gray-500">
-
-                    <span>Início</span>
-
-                    <span>Caçador Tendências</span>
-
-                    <span>Analista</span>
-
-                    <span>Copywriter</span>
-
-                    <span>Mestre Criativos</span>
-
-                    <span>Artista Digital</span>
-
-                    <span>Lançamento</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- Linear Flow Container -->
-
-        <div class="bg-white rounded-3xl shadow-2xl p-8 overflow-x-auto">
-
-            <div class="flex items-center justify-between min-w-[1200px] space-x-8">
-
-                
-
-                <!-- Passo 1: Caçador de Tendências -->
-
-                <div class="flex-1">
-
-                    <div class="step-node bg-gradient-to-br from-red-400 to-pink-600 text-white rounded-2xl p-6 shadow-xl arrow-connector pulse-glow">
-
-                        <div class="flex items-center justify-between mb-4">
-
-                            <div>
-
-                                <div class="text-3xl mb-2">🎯</div>
-
-                                <h3 class="text-xl font-bold">CAÇADOR TENDÊNCIAS</h3>
-
-                                <p class="text-sm opacity-90">Automação Inicial</p>
-
-                            </div>
-
-                            <button class="expand-btn bg-white bg-opacity-20 rounded-full w-8 h-8 flex items-center justify-center text-xl hover:bg-opacity-30 transition-colors" onclick="toggleSubThemes('step1')">
-
-                                +
-
-                            </button>
-
-                        </div>
-
-                        <p class="text-sm opacity-80">Analisar Mercado Dropshipping BR</p>
-
-                    </div>
-
-                    
-
-                    <!-- Sub-temas do Caçador de Tendências -->
-
-                    <div id="step1-subs" class="mt-4 space-y-3 hidden">
-
+        <main class="bg-white rounded-3xl shadow-2xl p-8 overflow-x-auto">
+            <div class="flex items-start justify-between min-w-[1400px] space-x-8">
+                
+                                <div class="flex-1" id="step1">
+                    <a href="URL_DO_SEU_GPT_CACADOR" target="_blank" title="Abrir GPT Caçador de Tendências">
+                        <div class="step-node bg-gradient-to-br from-red-400 to-pink-600 text-white rounded-2xl p-6 shadow-xl arrow-connector">
+                            <h3 class="text-xl font-bold">🎯 CAÇADOR TENDÊNCIAS</h3>
+                            <p class="text-sm opacity-90">Analisar Mercado Dropshipping BR</p>
+                        </div>
+                    </a>
+                    <div class="mt-4 space-y-3">
                         <div class="sub-theme bg-red-50 border-l-4 border-red-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-red-800 mb-2">📥 Input</h4>
-
-                            <ul class="text-sm text-red-700 space-y-1">
-
-                                <li>• Dados de mercado em tempo real</li>
-
-                                <li>• Tendências de busca no Brasil</li>
-
-                                <li>• Análise de concorrentes</li>
-
-                            </ul>
-
+                            <h4 class="font-semibold text-red-800">📤 Output</h4>
+                            <label class="flex items-center text-sm text-red-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step1')" class="mr-2">Relatório de Tendências Recebido</label>
                         </div>
-
-                        <div class="sub-theme bg-red-50 border-l-4 border-red-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-red-800 mb-2">⚙️ Ação</h4>
-
-                            <ul class="text-sm text-red-700 space-y-1">
-
-                                <li>• Monitoramento de tendências</li>
-
-                                <li>• Análise de sazonalidade</li>
-
-                                <li>• Identificação de nichos emergentes</li>
-
-                                <li>• Automação de relatórios</li>
-
-                            </ul>
-
-                        </div>
-
-                        <div class="sub-theme bg-red-50 border-l-4 border-red-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-red-800 mb-2">📤 Output</h4>
-
-                            <ul class="text-sm text-red-700 space-y-1">
-
-                                <li>• Produtos em alta no Brasil</li>
-
-                                <li>• Oportunidades de mercado</li>
-
-                                <li>• Dados para o Analista</li>
-
-                            </ul>
-
-                        </div>
-
                     </div>
-
                 </div>
 
-
-
-                <!-- Passo 2: O Analista -->
-
-                <div class="flex-1">
-
-                    <div class="step-node bg-gradient-to-br from-green-400 to-emerald-600 text-white rounded-2xl p-6 shadow-xl arrow-connector">
-
-                        <div class="flex items-center justify-between mb-4">
-
-                            <div>
-
-                                <div class="text-3xl mb-2">🕵️‍♂️</div>
-
-                                <h3 class="text-xl font-bold">O ANALISTA</h3>
-
-                                <p class="text-sm opacity-90">A Descoberta</p>
-
-                            </div>
-
-                            <button class="expand-btn bg-white bg-opacity-20 rounded-full w-8 h-8 flex items-center justify-center text-xl hover:bg-opacity-30 transition-colors" onclick="toggleSubThemes('step2')">
-
-                                +
-
-                            </button>
-
-                        </div>
-
-                        <p class="text-sm opacity-80">Analisar Potencial de Mercado</p>
-
-                    </div>
-
-                    
-
-                    <!-- Sub-temas do Analista -->
-
-                    <div id="step2-subs" class="mt-4 space-y-3 hidden">
-
+                <div class="flex-1" id="step2">
+                    <a href="URL_DO_SEU_GPT_ANALISTA" target="_blank" title="Abrir GPT O Analista">
+                        <div class="step-node bg-gradient-to-br from-green-400 to-emerald-600 text-white rounded-2xl p-6 shadow-xl arrow-connector">
+                            <h3 class="text-xl font-bold">🕵️‍♂️ O ANALISTA</h3>
+                            <p class="text-sm opacity-90">Analisar Potencial de Mercado</p>
+                        </div>
+                    </a>
+                    <div class="mt-4 space-y-3">
                         <div class="sub-theme bg-green-50 border-l-4 border-green-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-green-800 mb-2">📥 Input</h4>
-
-                            <ul class="text-sm text-green-700 space-y-1">
-
-                                <li>• Dados do Caçador de Tendências</li>
-
-                                <li>• Produtos em alta identificados</li>
-
-                                <li>• Oportunidades de mercado</li>
-
-                            </ul>
-
+                            <h4 class="font-semibold text-green-800">📤 Output</h4>
+                            <label class="flex items-center text-sm text-green-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step2')" class="mr-2">Relatório de Viabilidade (Go/No-Go)</label>
                         </div>
-
-                        <div class="sub-theme bg-green-50 border-l-4 border-green-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-green-800 mb-2">⚙️ Ação</h4>
-
-                            <ul class="text-sm text-green-700 space-y-1">
-
-                                <li>• Análise de demanda</li>
-
-                                <li>• Pesquisa de concorrência</li>
-
-                                <li>• Avaliação de margem</li>
-
-                                <li>• Análise de viabilidade</li>
-
-                            </ul>
-
-                        </div>
-
-                        <div class="sub-theme bg-green-50 border-l-4 border-green-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-green-800 mb-2">📤 Output</h4>
-
-                            <ul class="text-sm text-green-700 space-y-1">
-
-                                <li>• Relatório de Viabilidade</li>
-
-                                <li>• Decisão Go/No-Go</li>
-
-                                <li>• Recomendações estratégicas</li>
-
-                            </ul>
-
-                        </div>
-
                     </div>
+                </div>
 
-                </div>
-
-
-
-                <!-- Passo 3: O Copywriter -->
-
-                <div class="flex-1">
-
-                    <div class="step-node bg-gradient-to-br from-blue-400 to-cyan-600 text-white rounded-2xl p-6 shadow-xl arrow-connector">
-
-                        <div class="flex items-center justify-between mb-4">
-
-                            <div>
-
-                                <div class="text-3xl mb-2">✍️</div>
-
-                                <h3 class="text-xl font-bold">O COPYWRITER</h3>
-
-                                <p class="text-sm opacity-90">A Estratégia</p>
-
-                            </div>
-
-                            <button class="expand-btn bg-white bg-opacity-20 rounded-full w-8 h-8 flex items-center justify-center text-xl hover:bg-opacity-30 transition-colors" onclick="toggleSubThemes('step3')">
-
-                                +
-
-                            </button>
-
-                        </div>
-
-                        <p class="text-sm opacity-80">Criar Mensagem de Venda (Foco 45+)</p>
-
-                    </div>
-
-                    
-
-                    <!-- Sub-temas do Copywriter -->
-
-                    <div id="step3-subs" class="mt-4 space-y-3 hidden">
-
+                <div class="flex-1" id="step3">
+                    <a href="URL_DO_SEU_GPT_COPYWRITER" target="_blank" title="Abrir GPT O Copywriter">
+                        <div class="step-node bg-gradient-to-br from-blue-400 to-cyan-600 text-white rounded-2xl p-6 shadow-xl arrow-connector">
+                            <h3 class="text-xl font-bold">✍️ O COPYWRITER</h3>
+                            <p class="text-sm opacity-90">Criar Mensagem de Venda</p>
+                        </div>
+                    </a>
+                     <div class="mt-4 space-y-3">
                         <div class="sub-theme bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-blue-800 mb-2">📥 Input</h4>
-
-                            <ul class="text-sm text-blue-700 space-y-1">
-
-                                <li>• Produto aprovado pelo Analista</li>
-
-                                <li>• Relatório de viabilidade</li>
-
-                                <li>• Dados do público-alvo 45+</li>
-
-                            </ul>
-
+                            <h4 class="font-semibold text-blue-800">📤 Output</h4>
+                            <label class="flex items-center text-sm text-blue-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step3')" class="mr-2">Copy da Página de Vendas Pronta</label>
                         </div>
-
-                        <div class="sub-theme bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-blue-800 mb-2">⚙️ Ação</h4>
-
-                            <ul class="text-sm text-blue-700 space-y-1">
-
-                                <li>• Pesquisa de dores do público 45+</li>
-
-                                <li>• Criação de headlines persuasivas</li>
-
-                                <li>• Desenvolvimento de argumentos</li>
-
-                                <li>• Estruturação da página de vendas</li>
-
-                            </ul>
-
-                        </div>
-
-                        <div class="sub-theme bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-blue-800 mb-2">📤 Output</h4>
-
-                            <ul class="text-sm text-blue-700 space-y-1">
-
-                                <li>• Copy completa da página de vendas</li>
-
-                                <li>• Headlines e sub-headlines</li>
-
-                                <li>• Call-to-actions otimizados</li>
-
-                            </ul>
-
-                        </div>
-
                     </div>
+                </div>
 
-                </div>
-
-
-
-                <!-- Passo 4: O Mestre dos Criativos -->
-
-                <div class="flex-1">
-
-                    <div class="step-node bg-gradient-to-br from-purple-400 to-violet-600 text-white rounded-2xl p-6 shadow-xl arrow-connector">
-
-                        <div class="flex items-center justify-between mb-4">
-
-                            <div>
-
-                                <div class="text-3xl mb-2">🎬</div>
-
-                                <h3 class="text-xl font-bold">MESTRE CRIATIVOS</h3>
-
-                                <p class="text-sm opacity-90">A Direção</p>
-
-                            </div>
-
-                            <button class="expand-btn bg-white bg-opacity-20 rounded-full w-8 h-8 flex items-center justify-center text-xl hover:bg-opacity-30 transition-colors" onclick="toggleSubThemes('step4')">
-
-                                +
-
-                            </button>
-
-                        </div>
-
-                        <p class="text-sm opacity-80">Transformar Texto em Roteiro Visual</p>
-
-                    </div>
-
-                    
-
-                    <!-- Sub-temas do Mestre dos Criativos -->
-
-                    <div id="step4-subs" class="mt-4 space-y-3 hidden">
-
+                <div class="flex-1" id="step4">
+                    <a href="URL_DO_SEU_GPT_MESTRE" target="_blank" title="Abrir GPT Mestre dos Criativos">
+                        <div class="step-node bg-gradient-to-br from-purple-400 to-violet-600 text-white rounded-2xl p-6 shadow-xl arrow-connector">
+                            <h3 class="text-xl font-bold">🎬 MESTRE CRIATIVOS</h3>
+                            <p class="text-sm opacity-90">Transformar Texto em Roteiro</p>
+                        </div>
+                    </a>
+                     <div class="mt-4 space-y-3">
                         <div class="sub-theme bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-purple-800 mb-2">📥 Input</h4>
-
-                            <ul class="text-sm text-purple-700 space-y-1">
-
-                                <li>• Copy pronta do Copywriter</li>
-
-                                <li>• Mensagem de venda estruturada</li>
-
-                                <li>• Objetivos visuais definidos</li>
-
-                            </ul>
-
+                            <h4 class="font-semibold text-purple-800">📤 Output</h4>
+                            <label class="flex items-center text-sm text-purple-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step4')" class="mr-2">Roteiro de Vídeo Finalizado</label>
                         </div>
-
-                        <div class="sub-theme bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-purple-800 mb-2">⚙️ Ação</h4>
-
-                            <ul class="text-sm text-purple-700 space-y-1">
-
-                                <li>• Análise do texto para elementos visuais</li>
-
-                                <li>• Criação de storyboard</li>
-
-                                <li>• Definição de cenas e transições</li>
-
-                                <li>• Especificação de elementos visuais</li>
-
-                            </ul>
-
-                        </div>
-
-                        <div class="sub-theme bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-purple-800 mb-2">📤 Output</h4>
-
-                            <ul class="text-sm text-purple-700 space-y-1">
-
-                                <li>• Tabela de roteiro cena a cena</li>
-
-                                <li>• Descrições visuais detalhadas</li>
-
-                                <li>• Especificações técnicas</li>
-
-                            </ul>
-
-                        </div>
-
                     </div>
+                </div>
 
-                </div>
-
-
-
-                <!-- Passo 5: O Artista Digital -->
-
-                <div class="flex-1">
-
-                    <div class="step-node bg-gradient-to-br from-amber-400 to-orange-600 text-white rounded-2xl p-6 shadow-xl">
-
-                        <div class="flex items-center justify-between mb-4">
-
-                            <div>
-
-                                <div class="text-3xl mb-2">🎨</div>
-
-                                <h3 class="text-xl font-bold">ARTISTA DIGITAL</h3>
-
-                                <p class="text-sm opacity-90">A Visualização</p>
-
-                            </div>
-
-                            <button class="expand-btn bg-white bg-opacity-20 rounded-full w-8 h-8 flex items-center justify-center text-xl hover:bg-opacity-30 transition-colors" onclick="toggleSubThemes('step5')">
-
-                                +
-
-                            </button>
-
+                <div class="flex-1" id="step5">
+                    <a href="URL_DO_SEU_GPT_ARTISTA" target="_blank" title="Abrir GPT Artista Digital">
+                        <div class="step-node bg-gradient-to-br from-amber-400 to-orange-600 text-white rounded-2xl p-6 shadow-xl">
+                            <h3 class="text-xl font-bold">🎨 ARTISTA DIGITAL</h3>
+                            <p class="text-sm opacity-90">Gerar Imagens</p>
+                        </div>
+                    </a>
+                     <div class="mt-4 space-y-3">
+                        <div class="sub-theme bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-xl">
+                            <h4 class="font-semibold text-amber-800">📤 Output</h4>
+                            <label class="flex items-center text-sm text-amber-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step5')" class="mr-2">Imagens para Anúncios Geradas</label>
                         </div>
-
-                        <p class="text-sm opacity-80">Gerar Prompt Otimizado + Imagem</p>
-
                     </div>
-
-                    
-
-                    <!-- Sub-temas do Artista Digital -->
-
-                    <div id="step5-subs" class="mt-4 space-y-3 hidden">
-
-                        <div class="sub-theme bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-amber-800 mb-2">📥 Input</h4>
-
-                            <ul class="text-sm text-amber-700 space-y-1">
-
-                                <li>• "Descrição Visual" de uma cena</li>
-
-                                <li>• Especificações do Mestre Criativos</li>
-
-                                <li>• Requisitos técnicos da imagem</li>
-
-                            </ul>
-
-                        </div>
-
-                        <div class="sub-theme bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-amber-800 mb-2">⚙️ Ação</h4>
-
-                            <ul class="text-sm text-amber-700 space-y-1">
-
-                                <li>• Otimização de prompts para IA</li>
-
-                                <li>• Geração de múltiplas variações</li>
-
-                                <li>• Seleção da melhor imagem</li>
-
-                                <li>• Ajustes finais e refinamentos</li>
-
-                            </ul>
-
-                        </div>
-
-                        <div class="sub-theme bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-xl">
-
-                            <h4 class="font-semibold text-amber-800 mb-2">📤 Output</h4>
-
-                            <ul class="text-sm text-amber-700 space-y-1">
-
-                                <li>• Imagem final para o anúncio</li>
-
-                                <li>• Variações para testes A/B</li>
-
-                                <li>• Campanhas prontas para lançamento</li>
-
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+                </div>
             </div>
-
-        </div>
-
-
-
-        <!-- Controles e Informações -->
-
-        <div class="mt-8 grid md:grid-cols-3 gap-6">
-
-            <div class="bg-white rounded-xl shadow-lg p-6">
-
-                <h4 class="font-bold text-gray-800 mb-3 flex items-center">
-
-                    <span class="text-2xl mr-2">🤖</span>
-
-                    Workflow AI
-
-                </h4>
-
-                <ul class="text-sm text-gray-600 space-y-2">
-
-                    <li>• Fluxo automatizado de 4 especialistas</li>
-
-                    <li>• Foco no mercado brasileiro 45+</li>
-
-                    <li>• Do conceito à imagem final</li>
-
-                </ul>
-
-            </div>
-
-            
-
-            <div class="bg-white rounded-xl shadow-lg p-6">
-
-                <h4 class="font-bold text-gray-800 mb-3 flex items-center">
-
-                    <span class="text-2xl mr-2">🎯</span>
-
-                    Especialização
-
-                </h4>
-
-                <ul class="text-sm text-gray-600 space-y-2">
-
-                    <li>• Dropshipping no Brasil</li>
-
-                    <li>• Público 45+ anos</li>
-
-                    <li>• Automação completa do processo</li>
-
-                </ul>
-
-            </div>
-
-            
-
-            <div class="bg-white rounded-xl shadow-lg p-6">
-
-                <h4 class="font-bold text-gray-800 mb-3 flex items-center">
-
-                    <span class="text-2xl mr-2">⚡</span>
-
-                    Ações Rápidas
-
-                </h4>
-
-                <div class="space-y-2">
-
-                    <button onclick="expandAll()" class="w-full px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition-colors">
-
-                        Expandir Todos
-
-                    </button>
-
-                    <button onclick="collapseAll()" class="w-full px-4 py-2 bg-gray-500 text-white rounded-lg text-sm hover:bg-gray-600 transition-colors">
-
-                        Recolher Todos
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
+        </main>
     </div>
 
-
-
     <script>
-
-        function toggleSubThemes(stepId) {
-
-            const subsContainer = document.getElementById(`${stepId}-subs`);
-
-            const expandBtn = event.target;
-
-            
-
-            if (subsContainer.classList.contains('hidden')) {
-
-                // Expandir
-
-                subsContainer.classList.remove('hidden');
-
-                expandBtn.classList.add('rotated');
-
-                expandBtn.textContent = '×';
-
-                
-
-                // Animar sub-temas
-
-                const subThemes = subsContainer.querySelectorAll('.sub-theme');
-
-                subThemes.forEach((theme, index) => {
-
-                    setTimeout(() => {
-
-                        theme.classList.add('show');
-
-                    }, index * 100);
-
-                });
-
-                
-
-                // Scroll suave para mostrar conteúdo expandido
-
-                setTimeout(() => {
-
-                    subsContainer.scrollIntoView({ 
-
-                        behavior: 'smooth', 
-
-                        block: 'nearest' 
-
-                    });
-
-                }, 300);
-
-                
-
-            } else {
-
-                // Recolher
-
-                const subThemes = subsContainer.querySelectorAll('.sub-theme');
-
-                subThemes.forEach(theme => {
-
-                    theme.classList.remove('show');
-
-                });
-
-                
-
-                setTimeout(() => {
-
-                    subsContainer.classList.add('hidden');
-
-                    expandBtn.classList.remove('rotated');
-
-                    expandBtn.textContent = '+';
-
-                }, 300);
-
-            }
-
-        }
-
-
-
-        function expandAll() {
-
-            const allSteps = ['step1', 'step2', 'step3', 'step4', 'step5'];
-
-            
-
-            allSteps.forEach((stepId, index) => {
-
-                const subsContainer = document.getElementById(`${stepId}-subs`);
-
-                const expandBtn = document.querySelector(`#${stepId}-subs`).previousElementSibling.querySelector('.expand-btn');
-
-                
-
-                if (subsContainer.classList.contains('hidden')) {
-
-                    setTimeout(() => {
-
-                        subsContainer.classList.remove('hidden');
-
-                        expandBtn.classList.add('rotated');
-
-                        expandBtn.textContent = '×';
-
-                        
-
-                        const subThemes = subsContainer.querySelectorAll('.sub-theme');
-
-                        subThemes.forEach((theme, themeIndex) => {
-
-                            setTimeout(() => {
-
-                                theme.classList.add('show');
-
-                            }, themeIndex * 50);
-
-                        });
-
-                    }, index * 200);
-
-                }
-
-            });
-
-        }
-
-
-
-        function collapseAll() {
-
-            const allSteps = ['step1', 'step2', 'step3', 'step4', 'step5'];
-
-            
-
-            allSteps.forEach(stepId => {
-
-                const subsContainer = document.getElementById(`${stepId}-subs`);
-
-                const expandBtn = document.querySelector(`#${stepId}-subs`).previousElementSibling.querySelector('.expand-btn');
-
-                
-
-                if (!subsContainer.classList.contains('hidden')) {
-
-                    const subThemes = subsContainer.querySelectorAll('.sub-theme');
-
-                    subThemes.forEach(theme => {
-
-                        theme.classList.remove('show');
-
-                    });
-
-                    
-
-                    setTimeout(() => {
-
-                        subsContainer.classList.add('hidden');
-
-                        expandBtn.classList.remove('rotated');
-
-                        expandBtn.textContent = '+';
-
-                    }, 300);
-
-                }
-
-            });
-
-        }
-
-
-
-        // Adicionar efeitos de hover aos nós
-
-        document.addEventListener('DOMContentLoaded', function() {
-
-            const stepNodes = document.querySelectorAll('.step-node');
-
-            
-
-            stepNodes.forEach(node => {
-
-                node.addEventListener('mouseenter', function() {
-
-                    this.style.transform = 'translateY(-8px) scale(1.02)';
-
-                });
-
-                
-
-                node.addEventListener('mouseleave', function() {
-
-                    this.style.transform = 'translateY(0) scale(1)';
-
-                });
-
-            });
-
-        });
-
+        // Adiciona a classe 'show' aos sub-temas para que apareçam por padrão
+        document.addEventListener('DOMContentLoaded', function() {
+            const subThemes = document.querySelectorAll('.sub-theme');
+            subThemes.forEach((theme, index) => {
+                setTimeout(() => {
+                    theme.classList.add('show');
+                }, index * 50);
+            });
+        });
+
+        function updateNodeStatus(stepId) {
+            const nodeContainer = document.getElementById(stepId);
+            const checkbox = nodeContainer.querySelector('input[type="checkbox"]');
+            const stepNode = nodeContainer.querySelector('.step-node');
+
+            if (checkbox.checked) {
+                stepNode.classList.add('completed');
+            } else {
+                stepNode.classList.remove('completed');
+            }
+        }
     </script>
-
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9800a484c654f390',t:'MTc1ODAyODYzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-
+</body>
 </html>

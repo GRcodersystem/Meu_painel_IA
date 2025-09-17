@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa Mental Linear - Workflow AI</title>
+    <title>Playbook Operacional - Workflow AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -15,7 +15,6 @@
         .sub-theme.show { opacity: 1; transform: translateX(0); }
         .step-node a { text-decoration: none; color: inherit; }
 
-        /* Apenas para ecrãs maiores */
         @media (min-width: 768px) {
             .arrow-connector { position: relative; }
             .arrow-connector::after { content: ''; position: absolute; top: 50%; right: -25px; width: 0; height: 0; border-left: 15px solid #3b82f6; border-top: 10px solid transparent; border-bottom: 10px solid transparent; transform: translateY(-50%); z-index: 10; }
@@ -28,20 +27,24 @@
             <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
                 🤖 Workflow: Equipa de Especialistas AI
             </h1>
-            <p class="text-gray-600 mb-4">Fluxo automatizado de criação de campanhas de dropshipping</p>
+            <p class="text-gray-600 mb-4">Playbook interativo para criação de campanhas de dropshipping</p>
         </header>
 
         <main class="bg-white rounded-3xl shadow-2xl p-4 md:p-8">
             <div class="flex flex-col md:flex-row md:items-start md:justify-between space-y-8 md:space-y-0 md:space-x-8">
                 
                 <div class="w-full md:flex-1" id="step1">
-                    <a href="https://chatgpt.com/g/g-68c90a7117208191b8431e847f539881-cacador-de-tendencias" target="_blank" title="Abrir GPT Caçador de Tendências">
+                    <a href="https://chatgpt.com/g/g-68c90a7117208191b8431e847f539881-cacador-de-tendencias?model=gpt-5-thinking" target="_blank" title="Abrir GPT Caçador de Tendências">
                         <div class="step-node bg-gradient-to-br from-red-400 to-pink-600 text-white rounded-2xl p-6 shadow-xl arrow-connector">
                             <h3 class="text-xl font-bold">🎯 CAÇADOR TENDÊNCIAS</h3>
                             <p class="text-sm opacity-90">Analisar Mercado Dropshipping BR</p>
                         </div>
                     </a>
                     <div class="mt-4 space-y-3">
+                        <div class="sub-theme bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-xl">
+                            <h4 class="font-semibold text-yellow-800">⭐ Guia de Ação</h4>
+                            <p class="text-sm text-yellow-700 mt-2"><strong>Prompt Ideal:</strong> "Analise as tendências de 'inovações práticas' para o nicho de [nicho específico] no Brasil, com foco no público 45+."</p>
+                        </div>
                         <div class="sub-theme bg-red-50 border-l-4 border-red-400 p-4 rounded-r-xl">
                             <h4 class="font-semibold text-red-800">📤 Output</h4>
                             <label class="flex items-center text-sm text-red-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step1')" class="mr-2 h-4 w-4">Relatório de Tendências Recebido</label>
@@ -50,13 +53,23 @@
                 </div>
 
                 <div class="w-full md:flex-1" id="step2">
-                    <a href="https://chatgpt.com/g/g-68c8b9a2e6a88191870120d5c65b02c4-analista-de-produtos-vencedores" target="_blank" title="Abrir GPT O Analista">
+                    <a href="https://chatgpt.com/g/g-68c8b9a2e6a88191870120d5c65b02c4-analista-de-produtos-vencedores?model=gpt-5-thinking" target="_blank" title="Abrir GPT O Analista">
                         <div class="step-node bg-gradient-to-br from-green-400 to-emerald-600 text-white rounded-2xl p-6 shadow-xl arrow-connector">
                             <h3 class="text-xl font-bold">🕵️‍♂️ O ANALISTA</h3>
                             <p class="text-sm opacity-90">Analisar Potencial de Mercado</p>
                         </div>
                     </a>
                     <div class="mt-4 space-y-3">
+                        <div class="sub-theme bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-xl">
+                            <h4 class="font-semibold text-yellow-800">⭐ Guia de Ação</h4>
+                            <p class="text-sm text-yellow-700 mt-2"><strong>Hierarquia de Informação (do melhor para o pior):</strong></p>
+                            <ol class="text-xs text-yellow-700 list-decimal list-inside mt-1 space-y-1">
+                                <li>Link do Anúncio Viral do Concorrente</li>
+                                <li>Link da Página do Produto do Concorrente</li>
+                                <li>Link do Fornecedor no AliExpress</li>
+                                <li>Apenas Fotos ou Ideia do Produto</li>
+                            </ol>
+                        </div>
                         <div class="sub-theme bg-green-50 border-l-4 border-green-400 p-4 rounded-r-xl">
                             <h4 class="font-semibold text-green-800">📤 Output</h4>
                             <label class="flex items-center text-sm text-green-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step2')" class="mr-2 h-4 w-4">Relatório de Viabilidade (Go/No-Go)</label>
@@ -72,6 +85,10 @@
                         </div>
                     </a>
                      <div class="mt-4 space-y-3">
+                        <div class="sub-theme bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-xl">
+                            <h4 class="font-semibold text-yellow-800">⭐ Guia de Ação</h4>
+                            <p class="text-sm text-yellow-700 mt-2"><strong>Comando Ideal:</strong> "Crie a copy completa para este produto, seguindo o template 45+." Anexe o relatório do `Analista` para dar contexto.</p>
+                        </div>
                         <div class="sub-theme bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-xl">
                             <h4 class="font-semibold text-blue-800">📤 Output</h4>
                             <label class="flex items-center text-sm text-blue-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step3')" class="mr-2 h-4 w-4">Copy da Página de Vendas Pronta</label>
@@ -87,6 +104,10 @@
                         </div>
                     </a>
                      <div class="mt-4 space-y-3">
+                        <div class="sub-theme bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-xl">
+                            <h4 class="font-semibold text-yellow-800">⭐ Guia de Ação</h4>
+                            <p class="text-sm text-yellow-700 mt-2"><strong>Comando Ideal:</strong> "Transforme esta copy em um roteiro [Modo Padrão/Storyboard/Extendido]." Anexe a copy do `Copywriter`.</p>
+                        </div>
                         <div class="sub-theme bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-xl">
                             <h4 class="font-semibold text-purple-800">📤 Output</h4>
                             <label class="flex items-center text-sm text-purple-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step4')" class="mr-2 h-4 w-4">Roteiro de Vídeo Finalizado</label>
@@ -102,6 +123,10 @@
                         </div>
                     </a>
                      <div class="mt-4 space-y-3">
+                        <div class="sub-theme bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-xl">
+                            <h4 class="font-semibold text-yellow-800">⭐ Guia de Ação</h4>
+                            <p class="text-sm text-yellow-700 mt-2"><strong>Comando Ideal:</strong> "Gere um prompt e uma imagem [formato] para este conceito:" Anexe a 'Descrição Visual' da cena do roteiro.</p>
+                        </div>
                         <div class="sub-theme bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-xl">
                             <h4 class="font-semibold text-amber-800">📤 Output</h4>
                             <label class="flex items-center text-sm text-amber-700 mt-2"><input type="checkbox" onchange="updateNodeStatus('step5')" class="mr-2 h-4 w-4">Imagens para Anúncios Geradas</label>
@@ -125,12 +150,12 @@
         function updateNodeStatus(stepId) {
             const nodeContainer = document.getElementById(stepId);
             const checkbox = nodeContainer.querySelector('input[type="checkbox"]');
-            const stepNode = nodeContainer.querySelector('.step-node');
+            const stepNodeLink = nodeContainer.querySelector('a'); // Target the link
 
             if (checkbox.checked) {
-                stepNode.classList.add('completed');
+                stepNodeLink.classList.add('completed');
             } else {
-                stepNode.classList.remove('completed');
+                stepNodeLink.classList.remove('completed');
             }
         }
     </script>
